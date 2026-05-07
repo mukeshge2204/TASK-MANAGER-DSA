@@ -4,7 +4,8 @@ Professional, resume-oriented, DSA-driven Task Manager built phase-by-phase.
 
 ## Current Status
 
-**Phase 1 complete:** architecture and system design prepared; implementation intentionally deferred.
+**Phase 1 complete:** architecture and system design prepared.
+**Phase 2 in progress:** backend setup scaffolding underway.
 
 ## Planned Phases
 
