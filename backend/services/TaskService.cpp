@@ -68,12 +68,12 @@ bool TaskService::updateTask(int id, const std::string& title,
 }
 
 bool TaskService::deleteTask(int id) {
-  auto prevSize = tasks_.size();
+  auto originalSize = tasks_.size();
   tasks_.erase(
       std::remove_if(tasks_.begin(), tasks_.end(),
                      [id](const Task& task) { return task.id == id; }),
       tasks_.end());
-  return tasks_.size() != prevSize;
+  return tasks_.size() != originalSize;
 }
 
 bool TaskService::markCompleted(int id) {
