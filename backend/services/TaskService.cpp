@@ -26,6 +26,18 @@ std::vector<Task> TaskService::getPendingTasks() const {
   return results;
 }
 
+std::vector<Task> TaskService::getTasksByPriority() const {
+  std::vector<Task> results = tasks_;
+  std::sort(results.begin(), results.end(),
+            [](const Task& left, const Task& right) {
+              if (left.priority == right.priority) {
+                return left.id < right.id;
+              }
+              return left.priority > right.priority;
+            });
+  return results;
+}
+
 std::optional<Task> TaskService::getTaskById(int id) const {
   const Task* task = findTask(id);
   if (!task) {
@@ -56,12 +68,12 @@ bool TaskService::updateTask(int id, const std::string& title,
 }
 
 bool TaskService::deleteTask(int id) {
-  auto originalSize = tasks_.size();
+  auto sizeBeforeDeletion = tasks_.size();
   tasks_.erase(
       std::remove_if(tasks_.begin(), tasks_.end(),
                      [id](const Task& task) { return task.id == id; }),
       tasks_.end());
-  return tasks_.size() != originalSize;
+  return tasks_.size() != sizeBeforeDeletion;
 }
 
 bool TaskService::markCompleted(int id) {

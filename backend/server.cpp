@@ -34,8 +34,9 @@ Response Server::handleRequest(const Request& request) {
           Helpers::tasksToJson(taskService_.getPendingTasks()));
     }
     if (request.path == "/tasks/priority") {
-      return respondJson(200, "Fetched priority tasks",
-                         Helpers::tasksToJson(taskService_.getAllTasks()));
+      return respondJson(
+          200, "Fetched priority tasks",
+          Helpers::tasksToJson(taskService_.getTasksByPriority()));
     }
   }
 

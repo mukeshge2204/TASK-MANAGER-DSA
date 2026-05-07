@@ -13,6 +13,7 @@ class TaskService {
   const std::vector<Task>& getAllTasks() const;
   std::vector<Task> getCompletedTasks() const;
   std::vector<Task> getPendingTasks() const;
+  std::vector<Task> getTasksByPriority() const;
   std::optional<Task> getTaskById(int id) const;
 
   Task addTask(const std::string& title, const std::string& description,

@@ -9,8 +9,9 @@ std::string statusToString(TaskStatus status) {
       return "pending";
     case TaskStatus::Completed:
       return "completed";
+    default:
+      return "pending";
   }
-  return "pending";
 }
 
 std::string escapeJson(const std::string& input) {
