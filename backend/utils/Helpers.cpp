@@ -1,5 +1,6 @@
 #include "Helpers.h"
 
+#include <iomanip>
 #include <sstream>
 
 namespace Helpers {
@@ -16,13 +17,16 @@ std::string statusToString(TaskStatus status) {
 
 std::string escapeJson(const std::string& input) {
   std::ostringstream escaped;
-  for (char ch : input) {
+  for (unsigned char ch : input) {
     switch (ch) {
       case '\\':
         escaped << "\\\\";
         break;
       case '"':
         escaped << "\\\"";
+        break;
+      case '/':
+        escaped << "\\/";
         break;
       case '\n':
         escaped << "\\n";
@@ -34,7 +38,13 @@ std::string escapeJson(const std::string& input) {
         escaped << "\\t";
         break;
       default:
-        escaped << ch;
+        if (ch <= 0x1F) {
+          escaped << "\\u" << std::uppercase << std::hex << std::setw(4)
+                  << std::setfill('0') << static_cast<int>(ch)
+                  << std::nouppercase << std::dec;
+        } else {
+          escaped << ch;
+        }
         break;
     }
   }

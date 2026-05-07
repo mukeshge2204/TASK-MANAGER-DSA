@@ -1,6 +1,7 @@
 #include "server.h"
 
 #include <iostream>
+#include <sstream>
 
 #include "utils/Helpers.h"
 
@@ -58,12 +59,14 @@ Response Server::handleRequest(const Request& request) {
 
 Response Server::respondJson(int status, const std::string& message,
                              const std::string& dataJson) const {
-  std::string body = "{\"success\":" +
-                     std::string(status >= 200 && status < 300 ? "true"
-                                                              : "false") +
-                     ",\"message\":\"" + Helpers::escapeJson(message) +
-                     "\",\"data\":" + dataJson + "}";
-  return {status, "application/json", body};
+  std::ostringstream body;
+  body << "{";
+  body << "\"success\":"
+       << (status >= 200 && status < 300 ? "true" : "false") << ",";
+  body << "\"message\":\"" << Helpers::escapeJson(message) << "\",";
+  body << "\"data\":" << dataJson;
+  body << "}";
+  return {status, "application/json", body.str()};
 }
 
 Response Server::respondNotImplemented(const std::string& message) const {
