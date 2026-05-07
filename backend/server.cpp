@@ -36,7 +36,7 @@ Response Server::handleRequest(const Request& request) {
     }
     if (request.path == "/tasks/priority") {
       return respondJson(
-          200, "Fetched priority tasks",
+          200, "Fetched tasks sorted by priority",
           Helpers::tasksToJson(taskService_.getTasksByPriority()));
     }
   }

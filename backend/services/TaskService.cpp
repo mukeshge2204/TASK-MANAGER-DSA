@@ -1,6 +1,7 @@
 #include "TaskService.h"
 
 #include <algorithm>
+#include <cstddef>
 
 TaskService::TaskService() : nextId_(1) {}
 
@@ -68,7 +69,7 @@ bool TaskService::updateTask(int id, const std::string& title,
 }
 
 bool TaskService::deleteTask(int id) {
-  auto originalSize = tasks_.size();
+  const std::size_t originalSize = tasks_.size();
   tasks_.erase(
       std::remove_if(tasks_.begin(), tasks_.end(),
                      [id](const Task& task) { return task.id == id; }),

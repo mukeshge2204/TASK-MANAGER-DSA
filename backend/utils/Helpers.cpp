@@ -39,9 +39,10 @@ std::string escapeJson(const std::string& input) {
         break;
       default:
         if (ch <= 0x1F) {
-          escaped << "\\u" << std::uppercase << std::hex << std::setw(4)
-                  << std::setfill('0') << static_cast<int>(ch)
-                  << std::nouppercase << std::dec;
+          std::ostringstream hex;
+          hex << std::uppercase << std::hex << std::setw(4)
+              << std::setfill('0') << static_cast<int>(ch);
+          escaped << "\\u" << hex.str();
         } else {
           escaped << ch;
         }
